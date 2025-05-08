@@ -9,7 +9,7 @@ import {
 } from "../controllers/user.controller";
 import { verifyToken } from "../utils/jwt.utils";
 
-const router = Router(); // ← también es un Router
+const router = Router(); // 
 
 router.get("/users", fetchAllUsersController);
 router.get("/users/:id", fetchUserByIdController);

@@ -41,6 +41,6 @@ app.use('/api/auth', authRoutes);
 
 // Montas userRoutes en /api/users
 // (si quieres URL base /api/users en lugar de /api/users/users, cambia dentro de routes/routes)
-app.use('/api/users', userRoutes);
+app.use('/api', userRoutes);
 
 export default app;

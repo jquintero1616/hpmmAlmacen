@@ -12,11 +12,11 @@ export const getAllUserService = async (): Promise<NewUser[]> => {
     throw error;
   }
 };
-// Get user by id
+// Get user by id_user
 export const getUserByIdService = async (
-  id: number
+  id_user: number
 ): Promise<NewUser | null> => {
-  return UserModel.getUserByIdModel(id);
+  return UserModel.getUserByIdModel(id_user);
 };
 // Create user
 export const createUserService = async (data: NewUser) => {
@@ -26,14 +26,14 @@ export const createUserService = async (data: NewUser) => {
 };
 // Update user
 export const updateUserService = async (
-  id: number,
+  id_user: number,
   username: string,
   email: string,
   password: string,
   estado: boolean
 ) => {
   const updatedUser = await UserModel.updateUserModel(
-    id,
+    id_user,
     username,
     email,
     password,
@@ -42,16 +42,17 @@ export const updateUserService = async (
   return updatedUser;
 };
 
-export async function removeUserService(id: number): Promise<NewUser | null> {
+export async function removeUserService(
+  id_user: number
+): Promise<NewUser | null> {
   // Opcionalmente puedes verificar que exista:
-  const existing = await UserModel.getUserByIdModel(id);
+  const existing = await UserModel.getUserByIdModel(id_user);
   if (!existing) return null;
 
   // Llamar al modelo de delete
-  const deactivatedUser = await UserModel.deleteUserModel(id);
+  const deactivatedUser = await UserModel.deleteUserModel(id_user);
   return deactivatedUser;
 }
-
 
 export async function comparePasswords(
   plainPassword: string,

@@ -18,15 +18,15 @@ export const fetchAllUsersController = asyncWrapper(
 // Obtener un usuario por ID
 export const fetchUserByIdController = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
-    const id = parseInt(req.params.id, 10);
-    const user = await UserService.getUserByIdService(id);
+    const id_user = parseInt(req.params.id_user, 10);
+    const user = await UserService.getUserByIdService(id_user);
 
     if (!user) {
       res.status(404).json({ msg: "User not found" });
       return;
     }
 
-    res.status(200).json({ msg: `User found with id ${id}`, user });
+    res.status(200).json({ msg: `User found with id_user ${id_user}`, user });
   }
 );
 
@@ -42,10 +42,10 @@ export const registerUserController = asyncWrapper(
 // Editar un usuario existente
 export const editUserController = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
-    const id = parseInt(req.params.id, 10);
+    const id_user = parseInt(req.params.id_user, 10);
     const { username, email, password, estado } = req.body;
     const updatedUser = await UserService.updateUserService(
-      id,
+      id_user,
       username,
       email,
       password,
@@ -66,8 +66,8 @@ export const editUserController = asyncWrapper(
 // Eliminar un usuario
 export const removeUserController = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
-    const id = parseInt(req.params.id, 10);
-    const user = await UserService.removeUserService(id);
+    const id_user = parseInt(req.params.id_user, 10);
+    const user = await UserService.removeUserService(id_user);
 
     if (!user) {
       res.status(404).json({ msg: "Usuario no funciono" });
