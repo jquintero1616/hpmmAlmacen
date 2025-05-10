@@ -42,6 +42,8 @@ export const updateUserService = async (
   return updatedUser;
 };
 
+// delete user
+// Eliminar un usuario por id_user
 export async function removeUserService(
   id_user: number
 ): Promise<NewUser | null> {

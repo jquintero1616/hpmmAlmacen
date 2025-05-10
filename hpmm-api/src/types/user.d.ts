@@ -6,4 +6,4 @@ export interface User {
   estado: boolean;
 }
 
-export interface NewUser extends Omit<User, "id"> {}
+export interface NewUser extends Omit<User, "id_user"> {}

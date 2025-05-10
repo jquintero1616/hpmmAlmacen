@@ -3,6 +3,8 @@ import db from "../db";
 import { NewUser } from "../types/user";
 import { randomUUID } from "crypto";
 
+
+// Get all users model
 export const getAllUsersModel = async (): Promise<NewUser[] | []> => {
   return knexTableName().select("*").where({ estado: true });
 };

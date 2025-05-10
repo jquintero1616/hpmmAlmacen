@@ -8,7 +8,7 @@ export const fetchAllUsersController = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
     const users = await UserService.getAllUserService();
     res.status(200).json({
-      msg: "Users fetched successfully",
+      msg: "Usuarios buscados correctamente",
       totalUsers: users.length,
       users,
     });

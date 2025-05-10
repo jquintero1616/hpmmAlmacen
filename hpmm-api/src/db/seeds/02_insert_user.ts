@@ -1,26 +1,9 @@
-import type { Knex } from 'knex';
-import bcrypt from 'bcryptjs';
+import { Knex } from "knex";
 
 export async function seed(knex: Knex): Promise<void> {
-
-  const hashedAdminPassword = await bcrypt.hash('admin123', 10);
-  const hashedUserPassword = await bcrypt.hash('user123', 10);
-  await knex('users').del();
-  await knex('users').insert([
-    {
-      username: 'admin',
-      email: 'admin@example.com',
-      password: hashedAdminPassword,
-      id_rol: 'fe26a6db-6b5d-40b0-aca7-7bf2baf8418f',
-      estado: true,
-    },
-    {
-      username: 'user1',
-      email: 'user1@example.com',
-      password: hashedUserPassword,
-      id_rol: 'fe26a6db-6b5d-40b0-aca7-7bf2baf8416f',
-      estado: true,
-    },
+  await knex("users").del();
+  await knex("users").insert([
+    { id_user: "33333333-3333-3333-3333-333333333333", name: "José Quintero", correo: "jquintero@tuempresa.com", telefono: "+50412345678", id_rol: "22222222-2222-2222-2222-222222222222", estado: true },
   ]);
 }
 

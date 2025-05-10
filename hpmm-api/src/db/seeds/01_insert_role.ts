@@ -1,29 +1,9 @@
 import { Knex } from "knex";
 
 export async function seed(knex: Knex): Promise<void> {
-  // Deletes ALL existing entries
-  await knex("roles").del();
-
-  // Inserts seed entries
-  await knex("roles").insert([
-    {  
-      id_rol: 'fe26a6db-6b5d-40b0-aca7-7bf2baf8418f',
-      name: 'Administrador', 
-      descripcion: 'Administrador del sistema',
-      estado: true,
-    },
-    {  
-      id_rol: 'fe26a6db-6b5d-40b0-aca7-7bf2baf8417f',
-      name: 'JefaAlmacen', 
-      descripcion: 'Jefa de Almacen',
-      estado: true,
-     },
-
-    { 
-      id_rol: 'fe26a6db-6b5d-40b0-aca7-7bf2baf8416f',
-      name: 'Trabajador', 
-      descripcion: 'Trabajador de almacen',
-      estado: true,
-    },
+  await knex("role").del();
+  await knex("role").insert([
+    { id_rol: "11111111-1111-1111-1111-111111111111", name: "Admin", descripcion: "Administrador del sistema", estado: true },
+    { id_rol: "22222222-2222-2222-2222-222222222222", name: "User",  descripcion: "Usuario estándar",       estado: true },
   ]);
 }
