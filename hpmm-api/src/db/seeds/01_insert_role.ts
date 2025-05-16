@@ -1,0 +1,29 @@
+// src/db/seeds/01_insert_role.ts
+import { Knex } from "knex";
+
+export async function seed(knex: Knex): Promise<void> {
+  // 1) Borra roles y en cascada todas las filas de users que los referencien
+  await knex.raw('TRUNCATE TABLE "roles" RESTART IDENTITY CASCADE');
+
+  // 2) Inserta tus roles de ejemplo
+  await knex("roles").insert([
+    {
+      id_rol:      "11111111-1111-1111-1111-111111111111",
+      name:        "Admin",
+      descripcion: "Administrador del sistema",
+      estado:      true,
+    },
+    {
+      id_rol:      "22222222-2222-2222-2222-222222222222",
+      name:        "Usuario",
+      descripcion: "Usuario estándar",
+      estado:      true,
+    },
+    {
+      id_rol:      "33333333-3333-3333-3333-333333333333",
+      name:        "Invitado",
+      descripcion: "Acceso limitado",
+      estado:      false,
+    },
+  ]);
+}

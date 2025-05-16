@@ -4,8 +4,8 @@ import { CustomRequest } from '../types/express';
 
 const SECRET_KEY = process.env.JWT_SECRET as string;
 
-export const generateToken = (userId: string): string => {
-  return jwt.sign({ userId }, SECRET_KEY, { expiresIn: '1h' });
+export const generateToken = (user_id: string): string => {
+  return jwt.sign({ user_id }, SECRET_KEY, { expiresIn: '1h' });
 };
 
 export const verifyToken = (req: CustomRequest, res: Response, next: NextFunction) => {
