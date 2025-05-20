@@ -1,0 +1,111 @@
+import { BitacoraOptions } from "../types/bitacora";
+
+
+
+export const bitOpts: Record<string, BitacoraOptions> = {
+  users: {
+    tabla: "users",
+    idColumn: "id_user",
+    idParam: "id",
+    modulo: "Usuarios",
+    fields: ["id_user","username","email","password","estado","password"],
+  },
+  roles: {
+    tabla: "roles",
+    idColumn: "id_rol",
+    idParam: "id",
+    modulo: "Roles",
+    fields: ["id_rol","name","description","estado"],
+  },
+  employes: {
+    tabla: "employes",
+    idColumn: "id_employe",
+    idParam: "id",
+    modulo: "Empleados",
+    fields: ["name","email","telefono","puesto","estado"],
+  },
+  units: {
+    tabla: "units",
+    idColumn: "id",
+    idParam: "id",
+    modulo: "Unidades",
+    fields: ["name","description","estado"],
+  },
+  pacts: {
+    tabla: "pacts",
+    idColumn: "id",
+    idParam: "id",
+    modulo: "Pactos",
+    fields: ["title","start_date","end_date"],
+  },
+  kardex: {
+    tabla: "kardex",
+    idColumn: "id_kardex",
+    idParam: "id",
+    modulo: "Kardex",
+    fields: ["id_producto","cantidad","tipo_movimiento"],
+  },
+  shopping: {
+    tabla: "shopping",
+    idColumn: "id_shopping",
+    idParam: "id",
+    modulo: "Compras",
+    fields: ["id_vendedor","total","fecha_compra"],
+  },
+  product: {
+    tabla: "product",
+    idColumn: "id_product",
+    idParam: "id",
+    modulo: "Productos",
+    fields: ["name","price","stock","estado"],
+  },
+  subcategoria: {
+    tabla: "subcategoria",
+    idColumn: "id_subcategoria",
+    idParam: "id",
+    modulo: "Subcategorías",
+    fields: ["name","description"],
+  },
+  units_x_pacts: {
+    tabla: "units_x_pacts",
+    idColumn: "id",
+    idParam: "id",
+    modulo: "UnidadesPactos",
+    fields: ["unit_id","pact_id"],
+  },
+  noti: {
+    tabla: "notifications",
+    idColumn: "id_noti",
+    idParam: "id",
+    modulo: "Notificaciones",
+    fields: ["id_user","mensaje","tipo","estado"],
+  },
+  requisi: {
+    tabla: "requisi",
+    idColumn: "id_requisi",
+    idParam: "id",
+    modulo: "Requisiciones",
+    fields: ["id_usuario","fecha_solicitud","estado"],
+  },
+  scompras: {
+    tabla: "scompras",
+    idColumn: "id_scompras",
+    idParam: "id",
+    modulo: "SolicitudesCompras",
+    fields: ["id_usuario","total","fecha"],
+  },
+  vendedor: {
+    tabla: "vendedor",
+    idColumn: "id_vendedor",
+    idParam: "id",
+    modulo: "Vendedores",
+    fields: ["name","email","estado"],
+  },
+  supplier: {
+    tabla: "supplier",
+    idColumn: "id_supplier",
+    idParam: "id",
+    modulo: "Proveedores",
+    fields: ["name","contact","estado"],
+  },
+};

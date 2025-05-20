@@ -10,8 +10,8 @@ export const getAllNotiModel = async (): Promise<NewNoti[]> => {
 export const getNotiByIdModel = async (
     id_noti: string): 
     Promise<NewNoti> => {
-    const noti = await db("notifications").select("*").where({ id_noti }).first();
-    return noti || null;
+    const notification = await db("notifications").select("*").where({ id_noti }).first();
+    return notification || null;
 }
 
 export const createNotiModel = async (

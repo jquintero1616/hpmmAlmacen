@@ -6,7 +6,7 @@ export async function up(knex: Knex): Promise<void> {
     
     table.uuid("id_shopping").primary().defaultTo(knex.raw('uuid_generate_v4()'));
     table.uuid("id_scompra").notNullable();
-   // table.uuid("id_vendedor").notNullable();
+    table.uuid("id_vendedor").notNullable();
     table.date("fecha_compra").notNullable();
     table.decimal("total",10, 2).notNullable();
     table.timestamps(true, true);
@@ -17,6 +17,12 @@ export async function up(knex: Knex): Promise<void> {
       .references("id_scompra")
       .inTable("solicitud_compras")
       .onDelete("CASCADE");
+
+      table
+        .foreign("id_vendedor")
+        .references("id_vendedor")
+        .inTable("vendedor")
+        .onDelete("CASCADE");
   });
 }
 

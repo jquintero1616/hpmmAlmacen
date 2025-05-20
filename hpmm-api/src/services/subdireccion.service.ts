@@ -1,6 +1,5 @@
 import * as SubdireccionModel from "../models/subdireccion.model";
 import { NewSubdireccion } from "../types/subdireccion";
-import bcrypt from "bcryptjs";
 import logger from "../utils/loggers";
 
 
@@ -14,11 +13,13 @@ export const getAllSubdireccionesService = async (): Promise<NewSubdireccion[]> 
     }
     }
 
-    export const getSubdireccionByIdService = async (id_subdireccion: string): Promise<NewSubdireccion | null> => {
+    export const getSubdireccionByIdService = async (
+        id_subdireccion: string
+    ): Promise<NewSubdireccion | null> => {
         return SubdireccionModel.getSubdireccionByIdModel(id_subdireccion);
     }   
 
-    export const createSubdireccionService = async (data: NewSubdireccion) => {
+   export const createSubdireccionService = async (data: NewSubdireccion) => {
         return SubdireccionModel.createSubdireccionModel(data);
     }
 

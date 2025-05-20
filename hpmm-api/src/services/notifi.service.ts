@@ -15,11 +15,11 @@ export const  getAllNotiService = async (): Promise<NewNoti[]> => {
 export const getNotiBYService = async (
   id_noti: string 
 ): Promise<NewNoti> => {
-    const noti = await notiModel.getNotiByIdModel(id_noti);
-    if (!noti) {
+    const notification = await notiModel.getNotiByIdModel(id_noti);
+    if (!Notification) {
         throw new Error(`Notificacion con id_notifications ${id_noti} no encontrado`);
     }
-    return noti;
+    return notification;
 }
 
 export const createNotiService = async (data: NewNoti) => {

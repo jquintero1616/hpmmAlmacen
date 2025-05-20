@@ -9,16 +9,19 @@ export async function seed(knex: Knex): Promise<void> {
     {
       id_units: "dddddddd-dddd-dddd-dddd-dddddddddddd",
       id_pacts: "a1b2c3d4-e5f6-7a8b-9c0d-1e2f3a4b5c6d",
+      id_subcategory: "22222222-7777-2222-2222-222222223333",
      
     },
      {
       id_units: "eeeeeeee-eeee-eeee-eeee-eeeeeeeeeeee",
       id_pacts: "6d5c4b3a-2f1e-0d9c-8b7a-6f5e4d3c2b1a",
+      id_subcategory: "33333333-8888-3333-3333-333333334444",
      
     },
       {
       id_units: "ffffffff-ffff-ffff-ffff-ffffffffffff",
       id_pacts: "12345678-9abc-def0-1234-56789abcdef0",
+      id_subcategory: "44444444-9999-4444-4444-444444445555",
      
     },
   ]);

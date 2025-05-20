@@ -9,7 +9,9 @@ export const getAllSubdireccionesModel = async (): Promise<NewSubdireccion[] | [
 }
 
 
-export async function getSubdireccionByIdModel(id_subdireccion: string): Promise<NewSubdireccion | null> {
+export async function getSubdireccionByIdModel(
+  id_subdireccion: string
+): Promise<NewSubdireccion | null> {
   const subdireccion = await knexTableName().where({ id_subdireccion }).first();
   return subdireccion || null;
 }

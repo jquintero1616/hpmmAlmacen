@@ -11,6 +11,7 @@ export async function up(knex: Knex): Promise<void> {
 
     table.uuid("id_units").notNullable().index();
     table.uuid("id_pacts").notNullable().index();
+    table.uuid("id_subcategory").notNullable().index();
     table.timestamps(true, true);
 
     table
@@ -22,6 +23,11 @@ export async function up(knex: Knex): Promise<void> {
       .foreign("id_pacts")
       .references("id_pacts")
       .inTable("pacts")
+      .onDelete("CASCADE");
+    table
+      .foreign("id_subcategory")
+      .references("id_subcategory")
+      .inTable("subcategory")
       .onDelete("CASCADE");
   });
 }

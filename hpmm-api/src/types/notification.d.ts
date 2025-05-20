@@ -1,5 +1,5 @@
 
-export interface Notification {
+export interface notifications {
   id_noti: string;
   id_user: string;
   mensaje: string;
@@ -8,4 +8,4 @@ export interface Notification {
   created_at?: Date;
   updated_at?: Date;
 }
-export interface NewNoti extends Omit<Notification, "id_noti"> {}
+export interface NewNoti extends Omit<notifications, "id_noti"> {}

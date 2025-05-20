@@ -1,10 +1,10 @@
-export interface Vendedor {
+export interface vendedor {
   id_vendedor: string;
-  nombre: string;
+  id_proveedor: string
+  nombre_contacto: string;
   correo: string;
-  telefono: string;
   estado: boolean;
   created_at?: Date;
   updated_at?: Date;
 }
-export interface NewVendedor extends Omit<Vendedor, "id_vendedor"> {}
+export interface NewVendedor extends Omit<vendedor, "id_vendedor"> {}

@@ -1,7 +1,7 @@
 import * as UnitPactModel from "../models/units.x.pacts.model";
 import { NewUnitPact } from "../types/units_x_pacts";
 import logger from "../utils/loggers";
-import { randomUUID } from "crypto";
+
 
 export const getUnitPactService = async (): Promise<NewUnitPact[]> => {
   try {

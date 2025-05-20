@@ -20,7 +20,10 @@ export async function getShoppingByIdModel(
 export const createShoppingModel = async (
     data: NewShopping
 ): Promise<NewShopping> => {
-    const [createdShopping] = await knexTableName().insert({ ...data, id_shopping: randomUUID() }).returning("*");
+    const [createdShopping] = await knexTableName().insert({ 
+        ...data, 
+        id_shopping: randomUUID() })
+        .returning("*");
     return createdShopping;
 }
 

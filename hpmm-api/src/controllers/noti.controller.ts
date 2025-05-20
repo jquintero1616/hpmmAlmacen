@@ -17,14 +17,14 @@ export const getAllNotiController = asyncWrapper(
 export const getNotiByIdController = asyncWrapper(
     async (req: Request, res: Response): Promise<void> => {
         const id_noti = (req.params.id || "").trim();
-        const noti = await NotiService.getNotiBYService(id_noti);
+        const notification = await NotiService.getNotiBYService(id_noti);
     
-        if (!noti) {
+        if (!notification) {
             res.status(404).json({ msg: "Notificacion no encontrada" });
             return;
         }
     
-        res.status(200).json({ msg: `Notificacion encontrada con id_noti ${id_noti}`, noti });
+        res.status(200).json({ msg: `Notificacion encontrada con id_noti ${id_noti}`, notification });
         }
 );
 // Crear una notificacion

@@ -36,7 +36,7 @@ export const registerEmployesController = asyncWrapper(
     const employeData: NewEmploye = req.body;
     const newEmploye = await EmployeService.createEmployeService(employeData);
     res.status(201).json({
-      msg: `Ingresado correctamente nuevo empleado con id_employes ${newEmploye.name}`,
+      msg: `Ingresado correctamente nuevo empleado con nombreS ${newEmploye.name}`,
       newEmploye,
     });
   }
