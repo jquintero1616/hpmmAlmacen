@@ -8,7 +8,7 @@ export const fetchAllUsersController = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
     const users = await UserService.getAllUserService();
     res.status(200).json({
-      msg: "Usuarios buscados correctamente",
+      msg: "Users fetched successfully",
       totalUsers: users.length,
       users,
     });
@@ -18,77 +18,56 @@ export const fetchAllUsersController = asyncWrapper(
 // Obtener un usuario por ID
 export const fetchUserByIdController = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
-    const id_user = (req.params.id || "").trim();
-
-    const user = await UserService.getUserByIdService(id_user);
+    const id = parseInt(req.params.id, 10);
+    const user = await UserService.getUserByIdService(id);
 
     if (!user) {
-      res
-        .status(404)
-        .json({
-          msg: `No se encontro el usuario con la clave id_user ${id_user}`,
-          user,
-        });
+      res.status(404).json({ msg: "User not found" });
       return;
     }
 
-    res
-      .status(200)
-      .json({
-        msg: `Usuario encontrado con la clave id_user ${id_user}`,
-        user,
-      });
+    res.status(200).json({ msg: `User found with id ${id}`, user });
   }
 );
 
+// Registrar un nuevo usuario
 export const registerUserController = asyncWrapper(
-  async (req: Request, res: Response) => {
-    const body = req.body as NewUser;
-    // Validar campos obligatorios
-    const required = [
-      "id_rol",
-      "username",
-      "email",
-      "password",
-      "estado",
-    ] as const;
-    for (const key of required) {
-      if (body[key] === undefined) {
-        return res.status(400).json({ msg: `Falta el campo ${key}` });
-      }
-    }
-    const user = await UserService.createUserService(body);
-    res.status(201).json({ msg: "Usuario creado", user });
+  async (req: Request, res: Response): Promise<void> => {
+    const userData: NewUser = req.body;
+    const newUser = await UserService.createUserService(userData);
+    res.status(201).json(newUser);
   }
 );
 
 // Editar un usuario existente
 export const editUserController = asyncWrapper(
-  async (req: Request, res: Response) => {
-    const id_user = req.params.id.trim();
-    const updates = req.body as Partial<NewUser>;
-    const updatedUser = await UserService.updateUserService(id_user, updates);
+  async (req: Request, res: Response): Promise<void> => {
+    const id = parseInt(req.params.id, 10);
+    const { username, email, password, estado } = req.body;
+    const updatedUser = await UserService.updateUserService(
+      id,
+      username,
+      email,
+      password,
+      estado
+    );
+
     if (!updatedUser) {
-      return res.status(404).json({ msg: "Usuario no encontrado" });
+      res.status(404).json({ msg: "User not found" });
+      return;
     }
-    res.status(200).json({ msg: "Usuario actualizado", updatedUser });
+
+    res
+      .status(200)
+      .json({ message: "User updated successfully", user: updatedUser });
   }
 );
 
 // Eliminar un usuario
 export const removeUserController = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
-    const id_user = (req.params.id || "").trim();
-    const user = await UserService.removeUserService(id_user);
-
-    if (!user) {
-      res.status(404).json({ msg: "Usuario no encontrado" });
-      return;
-    }
-
-    res.status(200).json({
-      message: "Usuario eliminado correctamente",
-      user,
-    });
+    const id = parseInt(req.params.id, 10);
+    await UserService.removeUserService(id);
+    res.status(200).json({ msg: "User deleted successfully" });
   }
 );
