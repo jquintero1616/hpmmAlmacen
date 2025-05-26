@@ -2,17 +2,15 @@ import { Request, Response } from "express";
 import * as RequisiService from "../services/requisi.service";
 import { asyncWrapper } from "../utils/errorHandler";
 
-
-
 export const getAllRequisiController = asyncWrapper(
-    async (req: Request, res: Response): Promise<void> => {
-        const requisis = await RequisiService.getAllRequiService();
-        res.status(200).json({
-            msg: "Requisiciones encontradas correctamente",
-            totalRequisis: requisis.length,
-            requisis,
-        });
-    }
+  async (req: Request, res: Response): Promise<void> => {
+    const requisis = await RequisiService.getAllRequiService();
+    res.status(200).json({
+      msg: "Requisiciones encontradas correctamente",
+      totalRequisis: requisis.length,
+      requisis,
+    });
+  }
 );
 
 export const getRequisiByController = asyncWrapper(
@@ -25,12 +23,10 @@ export const getRequisiByController = asyncWrapper(
       return;
     }
 
-    res
-      .status(200)
-      .json({
-        msg: `Requisicion encontrada con id_requisi ${id_requisi}`,
-        requisi,
-      });
+    res.status(200).json({
+      msg: `Requisicion encontrada con id_requisi ${id_requisi}`,
+      requisi,
+    });
   }
 );
 
@@ -45,23 +41,25 @@ export const createRequisiController = asyncWrapper(
   }
 );
 
-export const UpdateRequisiController = asyncWrapper (
-    async (req: Request, res: Response): Promise<void> => {
-        const id_requisi = (req.params.id || "").trim();
-        const payload = req.body;
-        const updatedRequisi = await RequisiService.updateRequisiService(id_requisi, payload);
-        
-  
-        if (!updatedRequisi) {
-            res.status(404).json({ msg: "Requisicion no encontrada" });
-            return;
-        }
-    
-        res
-            .status(200)
-            .json({ msg: "Requisicion actualizada correctamente", updatedRequisi });
+export const UpdateRequisiController = asyncWrapper(
+  async (req: Request, res: Response): Promise<void> => {
+    const id_requisi = (req.params.id || "").trim();
+    const payload = req.body;
+    const updatedRequisi = await RequisiService.updateRequisiService(
+      id_requisi,
+      payload
+    );
+
+    if (!updatedRequisi) {
+      res.status(404).json({ msg: "Requisicion no encontrada" });
+      return;
     }
-)
+
+    res
+      .status(200)
+      .json({ msg: "Requisicion actualizada correctamente", updatedRequisi });
+  }
+);
 /*
 export const deleteRequisiController = asyncWrapper(
     async (req: Request, res: Response): Promise<void> => {

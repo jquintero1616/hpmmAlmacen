@@ -11,9 +11,7 @@ export const getAllPactsService = async (): Promise<Pact[]> => {
   }
 };
 
-export const getPactByIdService = async (
-  id_pacts: string
-): Promise<Pact> => {
+export const getPactByIdService = async (id_pacts: string): Promise<Pact> => {
   const pact = await pactsModel.getPactByIdModel(id_pacts);
   if (!pact) {
     throw new Error(`Pacto con id_pacts ${id_pacts} no encontrado`);
@@ -36,7 +34,9 @@ export const updatePactService = async (
 ): Promise<Pact> => {
   const updated = await pactsModel.updatePactModel(id_pacts, payload);
   if (!updated) {
-    throw new Error(`Pacto con id_pacts ${id_pacts} no encontrado o sin cambios`);
+    throw new Error(
+      `Pacto con id_pacts ${id_pacts} no encontrado o sin cambios`
+    );
   }
   return updated;
 };
