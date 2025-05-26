@@ -2,24 +2,29 @@
 import { Request, Response, NextFunction } from "express";
 import * as BitacoraService from "../services/bitacora.service";
 import db from "../db";
+import requestIp from "request-ip";
+
 
 /** Opciones de configuración por tabla */
 export interface BitacoraOptions {
-  tabla: string;             // nombre de la tabla en BD
-  idColumn: string;          // columna PK en BD
-  idParam?: string;          // parámetro de ruta (por defecto "id")
-  modulo?: string;           // nombre lógico del módulo
-  fields?: string[];         // lista de campos a guardar
+  tabla?: string;      // nombre de la tabla en BD
+  idColumn: string;    // columna PK en BD
+  idParam?: string;    // parámetro de ruta (por defecto "id")
+  modulo?: string;     // nombre lógico del módulo
+  fields?: string[];   // lista de campos a guardar
 }
 
-export const bitacoraInterceptor = ({
-  tabla,
-  idColumn,
-  idParam = "id",
-  modulo = tabla,
-  fields,
-}: BitacoraOptions) => {
-  // helper para quedarnos solo con las keys deseadas
+export const bitacoraInterceptor = (options?: BitacoraOptions) => {
+  // Defaults seguros incluso si llamas sin options
+  const {
+    tabla        = "tabla_desconocida",
+    idColumn     = "id",
+    idParam      = "id",
+    modulo       = tabla,
+    fields,
+  } = options || {};
+
+  // Helper para quedarnos solo con las keys deseadas
   const pick = (obj: any, keys: string[]) =>
     keys.reduce((acc, k) => {
       if (obj[k] !== undefined) acc[k] = obj[k];
@@ -27,30 +32,27 @@ export const bitacoraInterceptor = ({
     }, {} as Record<string, any>);
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    // solo intercepta POST, PUT y DELETE
+    // Solo intercepta CREATE / UPDATE / DELETE
     if (!["POST", "PUT", "DELETE"].includes(req.method)) {
       return next();
     }
 
-    const fecha_evento = new Date();
-    const id_usuario = typeof req.user === "object" ? req.user.userId : null;
-    const nombre_usuario =
-      typeof req.user === "object" ? req.user.username : null;
-    const accion =
-      req.method === "POST"
-        ? "CREATE"
-        : req.method === "PUT"
-        ? "UPDATE"
-        : "DELETE";
+    const fecha_evento   = new Date();
+    const id_usuario     = (req.user as any)?.id_user   ?? null;
+    const nombre_usuario = (req.user as any)?.username ?? null;
+    const accion         =
+      req.method === "POST"   ? "CREATE" :
+      req.method === "PUT"    ? "UPDATE" : "DELETE";
 
-    // 1) extraemos el ID del registro (POST puede venir en res.locals.newId)
+    // 1) Extraer ID del registro
     const registro_id = String(
-      req.params[idParam] ||
-      req.body[idColumn] ||
-      (res.locals.newId ?? "")
-    );
+      req.params[idParam] ??
+      req.body[idParam]   ??
+      res.locals.newId    ??
+      ""
+    ).trim();
 
-    // 2) capturamos valores anteriores si es PUT o DELETE (estado lógico)
+    // 2) Capturar valores anteriores (PUT o DELETE)
     let valores_anterior: string | null = null;
     if ((req.method === "PUT" || req.method === "DELETE") && registro_id) {
       const before = await db(tabla).where(idColumn, registro_id).first();
@@ -61,12 +63,12 @@ export const bitacoraInterceptor = ({
       }
     }
 
-    // 3) al terminar la respuesta…
+    // 3) Al terminar la respuesta…
     res.once("finish", async () => {
-      // sólo guardamos si la respuesta fue exitosa (2xx)
+      // Solo si fue 2xx
       if (res.statusCode < 200 || res.statusCode >= 300) return;
 
-      // 4) capturamos valores nuevos para POST, PUT y DELETE lógicos
+      // 4) Capturar valores nuevos (POST/PUT/DELETE lógicos)
       let valores_nuevos: string | null = null;
       if (registro_id) {
         const after = await db(tabla).where(idColumn, registro_id).first();
@@ -76,7 +78,10 @@ export const bitacoraInterceptor = ({
         }
       }
 
-      // 5) guardamos en la tabla bitacora
+      // 5) Obtener IP pública real
+      const ip_origin = requestIp.getClientIp(req) || req.ip;
+
+      // 6) Guardar en bitácora
       try {
         await BitacoraService.saveBitacora({
           id_usuario,
@@ -87,12 +92,12 @@ export const bitacoraInterceptor = ({
           valores_anterior,
           valores_nuevos,
           fecha_evento,
-          ip_origin: req.ip,
+          ip_origin,
           descripcion_evento: `${accion} en ${tabla}`,
           modulo_afecto: modulo,
         });
       } catch (err) {
-        console.error("Error guardando bitácora:", err);
+        console.error("INFO: Error guardando bitácora:", err);
       }
     });
 

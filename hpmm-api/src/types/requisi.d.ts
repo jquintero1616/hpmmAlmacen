@@ -3,7 +3,7 @@ export interface Requisi {
   id_requisi: string;
   id_employes?: string;
   fecha: Date;
-  tipo?: "Pendiente" | "Aprobado" | "Rechazado";
+  estado?: "Pendiente" | "Aprobado" | "Rechazado";
   created_at?: Date;
   updated_at?: Date;
 }

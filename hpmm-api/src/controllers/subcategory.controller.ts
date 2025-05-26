@@ -36,12 +36,12 @@ export const createSubcategoryController = asyncWrapper(
 
 export const editSubcategoryController = asyncWrapper(
     async (req: Request, res: Response): Promise<void> => {
-        const id_subcategory = req.params.id_subcategory;
-        const { name, estado } = req.body;
+        const id_subcategory = (req.params.id || "").trim();
+        const { name } = req.body;
         const updatedSubcategory = await SubcategoryService.updateSubcategoryService(
             id_subcategory,
-            name,
-            estado
+            name
+            
         );
         if (!updatedSubcategory) {
             res.status(404).json({ msg: "Subcategoria no encontrada" });
@@ -51,9 +51,27 @@ export const editSubcategoryController = asyncWrapper(
     }
 );
 
+
+export const updateSubcategoryController = asyncWrapper(
+    async (req: Request, res: Response): Promise<void> => {
+        const id_subcategory = (req.params.id || "").trim();
+        const { nombre } = req.body;
+        const updatedSubcategory = await SubcategoryService.updateSubcategoryService(
+            id_subcategory,
+            nombre
+           
+        );
+        if (!updatedSubcategory) {
+            res.status(404).json({ msg: "Subcategoria no encontrada" });
+            return;
+        }
+        res.status(200).json({ msg: "Subcategoria actualizada correctamente", updatedSubcategory });
+    }
+)
+
 export const deleteSubcategoryController = asyncWrapper(
     async (req: Request, res: Response): Promise<void> => {
-        const id_subcategory = req.params.id_subcategory;
+        const id_subcategory = (req.params.id || "").trim();
         const deletedSubcategory = await SubcategoryService.deleteSubcategoryService(id_subcategory);
         if (!deletedSubcategory) {
             res.status(404).json({ msg: "Subcategoria no encontrada" });

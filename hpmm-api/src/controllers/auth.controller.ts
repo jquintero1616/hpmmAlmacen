@@ -1,20 +1,51 @@
-import { Request, Response } from 'express';
-import { authenticateUser } from '../services/auth.service';
+// src/controllers/auth.controller.ts
+import { Request, Response } from "express";
+import { authenticateUser } from "../services/auth.service";
+import { asyncWrapper } from "../utils/errorHandler";
 
-export const login = async (req: Request, res: Response) => {
-  try {
+// Nota: ahora no retornamos el res.json(), solo lo invocamos y salimos.
+export const login = asyncWrapper(
+  async (req: Request, res: Response) => {
     const { email, password } = req.body;
-    const authResponse = await authenticateUser(email, password);
 
-    if (authResponse) {
-      res.json({ token: authResponse?.token, userId: authResponse?.userId });
-    } else {
-      res.status(401).json({ msg: 'Autenticacion Fallo.' });
+    if (!email || !password) {
+      res.status(400).json({ msg: "Correo y contraseña requeridos" });
+      return;
     }
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(`Login error: ${error?.message}`);
+
+    const auth = await authenticateUser(email, password);
+    if (!auth) {
+      res.status(401).json({ msg: "Credenciales inválidas" });
+      return;
     }
-    res.status(500).json({ msg: 'Internal Server Error' });
+
+    res.json({
+      msg: "Inicio de sesión exitoso",
+      token: auth.token,
+      userId: auth.userId,
+      username: auth.username,
+      id_rol: auth.id_role,
+    });
+    // no return aquí
   }
-};
+);
+
+export const checkSession = asyncWrapper(
+  async (req: Request, res: Response) => {
+    // Si llegamos aquí, el token ya fue validado por el middleware
+    res.json({
+      authenticated: true,
+      userId: req.user?.id_user,
+      username: req.user?.username,
+      msg: "Sesión válida",
+    });
+    // tampoco retornamos nada
+  }
+);
+
+export const logout = asyncWrapper(
+  async (req: Request, res: Response) => {
+    res.json({ msg: "Sesión cerrada" });
+    // tampoco retornamos nada
+  }
+);

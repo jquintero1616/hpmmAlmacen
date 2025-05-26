@@ -8,7 +8,7 @@ export interface Bitacora {
   valores_anterior: string | null;
   valores_nuevos: string | null;
   fecha_evento: Date;
-  ip_origin?: string | null;
+  ip_origin?: varchar | null;
   descripcion_evento: string | null;
   modulo_afecto: string | null;
   created_at: Date;

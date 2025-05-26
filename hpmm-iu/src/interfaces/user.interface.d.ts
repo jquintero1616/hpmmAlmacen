@@ -1,12 +1,9 @@
-export interface User {
-    id?: number;
-    username: string;
-    email: string;
-    estado: boolean;
-  }
-  
-  export interface NewUser {
+export interface userInfertace {
+    id_user?: string;
     username: string;
     email: string;
     password: string;
+    estado: boolean;
+    id_rol: string;
   }
+  

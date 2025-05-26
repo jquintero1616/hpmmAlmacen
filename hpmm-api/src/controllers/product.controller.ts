@@ -48,14 +48,15 @@ export const updateProductController = asyncWrapper(
        const id_product = (req.params.id || "").trim();
        const {
          nombre,
+         id_subcategory,
          descripcion,
          stock_actual,
          stock_maximo,
          fecha_vencimiento,
          numero_lote,
-         estado,
+         
        } = req.body;
-       const updatedProduct = await ProductService.updateProductService(id_product, nombre, descripcion,stock_actual, stock_maximo, fecha_vencimiento, numero_lote, estado);
+       const updatedProduct = await ProductService.updateProductService(id_product,id_subcategory, nombre, descripcion,stock_actual, stock_maximo, fecha_vencimiento, numero_lote);
        if (!updatedProduct) {
            res.status(404).json({ msg: "Producto no encontrado" });
            return;

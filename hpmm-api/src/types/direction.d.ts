@@ -1,6 +1,6 @@
 export interface Direction {
-  id_direction: number;
-  name: string;
+  id_direction: string;
+  nombre: string;
   estado: boolean;
   create_at: Date;
   update_at: Date;

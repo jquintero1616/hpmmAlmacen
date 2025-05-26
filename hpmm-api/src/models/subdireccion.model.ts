@@ -1,4 +1,3 @@
-import knex from "knex";
 import db from "../db";
 import { NewSubdireccion } from "../types/subdireccion";
 import { randomUUID } from "crypto";
@@ -16,7 +15,9 @@ export async function getSubdireccionByIdModel(
   return subdireccion || null;
 }
 
-export const createSubdireccionModel = async (subdireccion: NewSubdireccion): Promise<NewSubdireccion> => {  
+export const createSubdireccionModel = async (
+  subdireccion: NewSubdireccion
+): Promise<NewSubdireccion> => {  
   const [createdSubdireccion] = await knexTableName()
     .insert({ ...subdireccion, id_subdireccion: randomUUID() })
     .returning("*");
@@ -26,14 +27,14 @@ export const createSubdireccionModel = async (subdireccion: NewSubdireccion): Pr
 export async function updateSubdireccionModel(
   id_subdireccion: string,
   nombre: string,
-  estado: boolean
+  
 ): Promise<NewSubdireccion | null> {
   const updated_at = new Date();
   const [updatedSubdireccion] = await knexTableName()
     .where({ id_subdireccion })
     .update({
       nombre,
-      estado,
+      
       updated_at,
     })
     .returning("*");

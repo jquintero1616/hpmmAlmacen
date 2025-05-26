@@ -3,7 +3,6 @@ import * as RolService from "../services/rol.service";
 import { asyncWrapper } from "../utils/errorHandler";
 import { NewRol } from "../types/rol";
 
-
 // Listar todos los roles
 export const getAllController = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
@@ -13,9 +12,8 @@ export const getAllController = asyncWrapper(
       totalRoles: roles.length,
       roles,
     });
-  } 
+  }
 );
-
 
 // Obtener un rol por ID
 export const getByIdController = asyncWrapper(
@@ -36,6 +34,12 @@ export const getByIdController = asyncWrapper(
 export const registerRolesController = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
     const rolData: NewRol = req.body;
+
+    const allRoles = await RolService.getAllRolService();
+    if (allRoles.find((rol) => rol.name === rolData.name)) {
+      res.status(403).json({ msg: "El rol ya existe", rolData });
+      return;
+    }
     const newRol = await RolService.createRolService(rolData);
     res.status(201).json(newRol);
   }
@@ -43,36 +47,36 @@ export const registerRolesController = asyncWrapper(
 
 // Editar un rol existente
 export const editRolController = asyncWrapper(
-    async (req: Request, res: Response): Promise<void> => {
-        const id_rol = (req.params.id || "").trim();
-        const { name, descripcion, estado } = req.body;
-        const updatedRol = await RolService.updateRolService(
-        id_rol,
-        name,
-        descripcion,
-        estado
-        );
-    
-        if (!updatedRol) {
-        res.status(404).json({ msg: "Rol no encontrado" });
-        return;
-        }
-    
-        res.status(200).json({ msg: "Rol actualizado correctamente", updatedRol });
-    }
+  async (req: Request, res: Response): Promise<void> => {
+    const id_rol = (req.params.id || "").trim();
+    const { name, descripcion, estado } = req.body;
+    const updatedRol = await RolService.updateRolService(
+      id_rol,
+      name,
+      descripcion,
+      estado
     );
 
-    // Eliminar un rol existente
-export const deleteRolController = asyncWrapper(
-    async (req: Request, res: Response): Promise<void> => {
-        const id_rol = (req.params.id || "").trim();
-        const deletedRol = await RolService.deleteRolService(id_rol);
-    
-        if (!deletedRol) {
-        res.status(404).json({ msg: "Rol no encontrado" });
-        return;
-        }
-    
-        res.status(200).json({ msg: "Rol eliminado correctamente", deletedRol });
+    if (!updatedRol) {
+      res.status(404).json({ msg: "Rol no encontrado" });
+      return;
     }
+
+    res.status(200).json({ msg: "Rol actualizado correctamente", updatedRol });
+  }
+);
+
+// Eliminar un rol existente
+export const deleteRolController = asyncWrapper(
+  async (req: Request, res: Response): Promise<void> => {
+    const id_rol = (req.params.id || "").trim();
+    const deletedRol = await RolService.deleteRolService(id_rol);
+
+    if (!deletedRol) {
+      res.status(404).json({ msg: "Rol no encontrado" });
+      return;
+    }
+
+    res.status(200).json({ msg: "Rol eliminado correctamente", deletedRol });
+  }
 );

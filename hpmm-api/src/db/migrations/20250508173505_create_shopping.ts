@@ -9,6 +9,7 @@ export async function up(knex: Knex): Promise<void> {
     table.uuid("id_vendedor").notNullable();
     table.date("fecha_compra").notNullable();
     table.decimal("total",10, 2).notNullable();
+    table.boolean("estado").notNullable().defaultTo(true);
     table.timestamps(true, true);
 
 

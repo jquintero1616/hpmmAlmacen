@@ -20,13 +20,14 @@ const LoginForm: React.FC<LoginFormProps> = ({
   onPasswordChange,
   onSubmit,
 }) => (
-  <form onSubmit={onSubmit} className="space-y-4">
+  
+  <form onSubmit={onSubmit} className="space-y-5">
     <Input
       name="email"
       type="email"
       value={email}
       onChange={onEmailChange}
-      placeholder="tu@correo.com"
+      placeholder="Correo electrónico"
     />
 
     <Input
@@ -34,16 +35,16 @@ const LoginForm: React.FC<LoginFormProps> = ({
       type="password"
       value={password}
       onChange={onPasswordChange}
-      placeholder="••••••••"
+      placeholder="Contraseña"
     />
 
     {error && <ErrorMessage message={error} />}
 
     <Button
       type="submit"
-      className="w-full bg-blue-600 text-white hover:bg-blue-700"
+      className="w-full bg-blue-600 text-white hover:bg-purple-700"
     >
-      Entrar
+      Iniciar sesión
     </Button>
   </form>
 );

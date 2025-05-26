@@ -8,7 +8,7 @@ export const getAllRequisiProductController = asyncWrapper(
     async (req: Request, res: Response): Promise<void> => {
         const requisis = await RequisiProductServie.getAllRequisiProdctService();
         res.status(200).json({
-            msg: "Requisiciones encontradas correctamente",
+            msg: "Requisiciones y productos encontradas correctamente",
             totalRequisis: requisis.length,
             requisis,
         });
@@ -48,14 +48,14 @@ export const createRequisiProductController = asyncWrapper(
 );
 
 
-export const editRequisiProductController = asyncWrapper(
+export const UpdateRequisiProductController = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
     const id_requisi = (req.params.id || "").trim();
-    const { data } = req.body;
+    const { cantidad } = req.body;
     const updatedRequisiProduct =
       await RequisiProductServie.updateRequisiProductService(
         id_requisi,
-        data
+        cantidad
      );
 
     if (!updatedRequisiProduct) {

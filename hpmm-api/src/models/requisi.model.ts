@@ -27,19 +27,19 @@ export const createRequisiModel = async (
 
 export async function updateRequisiModel(
   id_requisi: string,
-  mensaje: string,
-  tipo: string
+  fecha: Date,
+  estado: string
 ): Promise<NewRequisi | null> {
     const updated_at = new Date();
   const [updatedRequisi] = await knexTableName()
     .update({
-         mensaje, 
-         tipo,
+         fecha, 
+         estado,
          updated_at,
     })
     .where({ id_requisi })
     .returning("*");
-  return updatedRequisi[0] || null;
+  return updatedRequisi || null;
 }
 
 

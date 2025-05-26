@@ -33,24 +33,26 @@ export async function updateShoppingModel(
     id_vendedor: string,
     fecha_compra: Date,
     total: number,
+    estado: boolean
 ): Promise<NewShopping> {
     const [updatedShopping] = await knexTableName()
       .where({
         id_shopping,
       })
-      .update({ fecha_compra, total, id_scompra, id_vendedor })
+      .update({ fecha_compra, total, id_scompra, id_vendedor, estado })
       .returning("*");
     return updatedShopping;
 }
 
 export async function deleteShoppingModel(
     id_shopping: string
-): Promise<NewShopping> {
+): Promise<NewShopping | null> {
+    const updated_at = new Date();
     const [deletedShopping] = await knexTableName()
     .where({ id_shopping })
-    .del()
+    .update({ estado: false, updated_at })
     .returning("*");
-    return deletedShopping;
+    return deletedShopping || null;
 }   
 
 const knexTableName = () => {

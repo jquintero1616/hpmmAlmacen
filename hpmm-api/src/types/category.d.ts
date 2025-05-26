@@ -1,7 +1,7 @@
 export interface category {
   id_category: string;
-  descripcion: string;
   nombre: string;
+  descripcion: string;
   estado: boolean;
   created_at?: Date;
   updated_at?: Date;

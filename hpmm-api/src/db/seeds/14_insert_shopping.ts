@@ -11,14 +11,16 @@ export async function seed(knex: Knex): Promise<void> {
       id_scompra: "11111111-1111-1111-1111-111111111111",
       id_vendedor: "aaaaaaaa-aaaa-2222-aaaa-aaaaaaaaaaaa",
       fecha_compra: "2025-05-10",
-      total: 1000.50
+      total: 1000.50,
+      estado: true
     },
     {
       id_shopping: "11111111-1111-1111-1111-111111114444",
       id_scompra: "22222222-2222-2222-2222-222222222222",
       id_vendedor: "bbbbbbbb-bbbb-2222-bbbb-bbbbbbbbbbbb",
       fecha_compra: "2025-05-10",
-      total: 1000.50
+      total: 1000.50,
+      estado: true
     },
     {
       id_shopping: "11111111-1111-1111-1111-111111115555",
@@ -26,6 +28,7 @@ export async function seed(knex: Knex): Promise<void> {
       id_vendedor: "cccccccc-cccc-3333-cccc-cccccccccccc",
       fecha_compra: "2025-05-10",
       total: 1000.50,
+      estado: true
     }
   ]);
 }

@@ -10,7 +10,7 @@ export interface InputProps {
 }
 
 const Input: React.FC<InputProps> = ({ name, type = 'text', value, onChange, placeholder = '', className = '' }) => (
-  <div className="mb-4">
+  <div className="mb-5">
     <input
       id={name}
       name={name}
@@ -18,7 +18,7 @@ const Input: React.FC<InputProps> = ({ name, type = 'text', value, onChange, pla
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      className={`w-full px-4 py-2 border rounded-md focus:outline-none focus:ring ${className}`}
+      className={`w-full h-10 px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-purple-00 ${className}`}
     />
   </div>
 );

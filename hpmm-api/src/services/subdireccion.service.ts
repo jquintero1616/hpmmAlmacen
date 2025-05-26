@@ -25,13 +25,13 @@ export const getAllSubdireccionesService = async (): Promise<NewSubdireccion[]> 
 
     export const updateSubdireccionService = async (
         id_subdireccion: string,
-        name: string,
-        estado: boolean
+        nombre: string
+        
     ) => {
         const updatedSubdireccion = await SubdireccionModel.updateSubdireccionModel(
             id_subdireccion,
-            name,
-            estado
+            nombre
+            
         );
         return updatedSubdireccion;
     };

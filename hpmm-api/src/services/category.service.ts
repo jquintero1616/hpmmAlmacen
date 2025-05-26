@@ -15,9 +15,7 @@ export const getAllCategoryService = async (): Promise<NewCategory[]> => {
 
 
 
-export const getCategoryByIdService = async (
-    id_category: string
-): Promise<NewCategory | null> => {
+export const getCategoryByIdService = async ( id_category: string): Promise<NewCategory[]> => {
     return SubdireccionModel.getCategoryByIdModel(id_category);
 };
 
@@ -29,11 +27,13 @@ export const createCategoryService = async (data: NewCategory) => {
 export const updateCategoryService = async (
     id_category: string,
     name: string,
+    descripcion: string,
     estado: boolean
 ) => {
     const updatedCategory = await SubdireccionModel.updateCategoryModel(
         id_category,
         name,
+        descripcion,
         estado
     );
     return updatedCategory;

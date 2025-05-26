@@ -38,6 +38,7 @@ export const updateShoppingService = async (
     id_vendedor: string,
     fecha_compra: Date,
     total: number,
+    estado: boolean
     
 ): Promise<NewShopping> => {
     try {
@@ -46,7 +47,8 @@ export const updateShoppingService = async (
             id_scompra,
             id_vendedor,
             fecha_compra,
-            total
+            total,
+            estado
             
         );
         if (!updatedShopping) {

@@ -1,38 +1,50 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
 import { routes } from "../src/routes/RouterConfig";
 import PrivateRouteValidation from "../src/routes/PrivateRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "../src/contexts/AuthContext";
+import { AnimatePresence } from "framer-motion";
+import { UserProvider } from "../src/contexts/userContext";
+import { PactProvider } from "../src/contexts/pactsContext";
 
-import { Authprovider } from "../src/contexts/AuthContext";
-//import { EmployeesProvider } from "@contexts/EmployeesContext.tsx";
-//import { DepartmentsProvider } from "@contexts/DepartmentsContext.tsx";
+
+
+function AnimatedRoutes() {
+  const location = useLocation();
+
+  return (
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {routes.map((route, index) => {
+          const element = route.private ? (
+            <PrivateRouteValidation>
+              {route.element}
+            </PrivateRouteValidation>
+          ) : (
+            route.element
+          );
+          return (
+            <Route key={index} path={route.path} element={element} />
+          );
+        })}
+      </Routes>
+    </AnimatePresence>
+  );
+}
 
 function App() {
   return (
-    <Authprovider>
-      
-       
+    <AuthProvider>
+      <UserProvider>
+        <PactProvider>
           <Router>
             <ToastContainer />
-            <Routes>
-              {routes.map((route, index) => {
-                const element = route.private ? (
-                  <PrivateRouteValidation>
-                    {route.element}
-                  </PrivateRouteValidation>
-                ) : (
-                  route.element
-                );
-                return (
-                  <Route key={index} path={route.path} element={element} />
-                );
-              })}
-            </Routes>
+            <AnimatedRoutes />
           </Router>
-        
-     
-    </Authprovider>
+        </PactProvider>
+      </UserProvider>
+    </AuthProvider>
   );
 }
 

@@ -33,9 +33,9 @@ export const createRequisiProductService = async (data: NewRequisiXProduct) => {
     }
 }
 
-export const updateRequisiProductService = async (id_requisi_x_product: string, data: NewRequisiXProduct) => {
+export const updateRequisiProductService = async (id_requisi_x_product: string, cantidad: number) => {
     try {
-        return await UnitPactModel.updateRequiProductModel(id_requisi_x_product, data);
+        return await UnitPactModel.updateRequiProductModel(id_requisi_x_product, cantidad);
     } catch (error) {
         logger.error("Error updating UnitPact", error);
         throw error;

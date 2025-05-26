@@ -27,13 +27,13 @@ export async function createRequiProductModel(
 
 export async function updateRequiProductModel(
   id_requisi_x_product: string,
-  data: NewRequisiXProduct
+  cantidad: number
 ): Promise<NewRequisiXProduct | null> {
   const updated_at = new Date();
   const [updatedRequiProduct] = await knexTableName()
     .where({ id_requisi_x_product })
     .update({
-      data,
+      cantidad,
       updated_at,
     })
     .returning("*");

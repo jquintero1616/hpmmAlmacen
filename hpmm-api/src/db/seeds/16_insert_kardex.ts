@@ -18,8 +18,9 @@ export async function seed(knex: Knex): Promise<void> {
       precio_unitario: 1000.5,
       tipo_solicitud: "Requisicion", // del seed de direction
       requisicion_numero: "1", // del seed de direction
-      estado: "Aprobado", // del seed de direction
-      observaciones: "Ninguna", // del seed de direction
+      tipo: "Aprobado", // del seed de direction
+      observacion: "Ninguna", 
+      estado: true// del seed de direction
     },
     {
       id_kardex: "11111111-3333-1111-1111-111111113333",
@@ -33,8 +34,9 @@ export async function seed(knex: Knex): Promise<void> {
       precio_unitario: 2000.5,
       tipo_solicitud: "Requisicion", // del seed de direction
       requisicion_numero: "2", // del seed de direction
-      estado: "Aprobado", // del seed de direction
-      observaciones: "Ninguna", // del seed de direction
+      tipo: "Rechazado", // del seed de direction
+      observacion: "Ninguna", // del seed de direction
+      estado: true// del seed de direction
     },
     {
       id_kardex: "11111111-1111-1111-1111-111111115555",
@@ -48,8 +50,9 @@ export async function seed(knex: Knex): Promise<void> {
       precio_unitario: 3000.5,
       tipo_solicitud: "Requisicion", // del seed de direction
       requisicion_numero: "3", // del seed de direction
-      estado: "Aprobado", // del seed de direction
-      observaciones: "Ninguna", // del seed de direction
+      tipo: "Pendiente", // del seed de direction
+      observacion: "Ninguna", // del seed de direction
+      estado: true// del seed de direction
     },
   ]);
 }

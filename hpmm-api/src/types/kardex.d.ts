@@ -10,8 +10,9 @@ export interface kardex {
   precio_unitario: number;
   tipo_solicitud: "Requisicion" | "Pacto";
   requisicion_numero: string;
-  estado: "Aprobado" | "Rechazado" | "En espera";
+  tipo: "Aprobado" | "Rechazado" | "Pendiente";
   observacion: string;
+  estado: boolean;
   create_at: Date;
   update_at: Date;
 }

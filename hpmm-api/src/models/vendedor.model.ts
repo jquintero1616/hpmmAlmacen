@@ -49,5 +49,5 @@ export async function updateVendedorModel(
   }
 
 const knexTableName = () => {
-  return db("shopping");
+  return db("vendedor");
 };

@@ -8,11 +8,14 @@ export interface LoginTemplateProps {
   onEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent) => void;
+  children?: React.ReactNode;
 }
 
-const LoginTemplate: React.FC<LoginTemplateProps> = props => (
+const LoginTemplate: React.FC<LoginTemplateProps> = (props) => (
   <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4 py-12">
-    <LoginCard {...props} />
+    <LoginCard {...props}>
+      {props.children}
+    </LoginCard>
   </div>
 );
 

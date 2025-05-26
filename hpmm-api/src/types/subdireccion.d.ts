@@ -1,7 +1,7 @@
 export interface Subdireccion {
   id_subdireccion: string;
   id_direction: string;
-  name: string;
+  nombre: string;
   estado: boolean;
   created_at?: Date;
   updated_at?: Date;

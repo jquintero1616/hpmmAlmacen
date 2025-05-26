@@ -34,6 +34,13 @@ export const getByIdController = asyncWrapper(
 export const registerEmployesController = asyncWrapper(
   async (req: Request, res: Response): Promise<void> => {
     const employeData: NewEmploye = req.body;
+    const allRoles = await EmployeService.getAllEmployesService();
+
+    if (allRoles.find((employe) => employe.name === employeData.name)) {
+      res.status(403).json({ msg: "El empleado ya existe", employeData });
+      return;
+    }
+
     const newEmploye = await EmployeService.createEmployeService(employeData);
     res.status(201).json({
       msg: `Ingresado correctamente nuevo empleado con nombreS ${newEmploye.name}`,

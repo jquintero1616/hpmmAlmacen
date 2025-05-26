@@ -15,8 +15,9 @@ export async function up(knex: Knex): Promise<void> {
     table.decimal("precio_unitario").notNullable();
     table.enu("tipo_solicitud", ["Requisicion", "Pacto"]);
     table.string("requisicion_numero").notNullable();
-    table.enu("estado", ["Aprobado", "Rechazado", "En espera"]);
-    table.string("observaciones").notNullable();
+    table.enu("tipo", ["Aprobado", "Rechazado", "Pendiente"]);
+    table.string("observacion").notNullable();
+    table.boolean("estado").notNullable().defaultTo(true);
     table.timestamps(true, true);
 
     table

@@ -1,9 +1,15 @@
+
 export interface User {
-  id: number;
+  id_user: string;   
   username: string;
   email: string;
   password: string;
-  estado: boolean;
-}
+  id_rol?: string;
+  estado?: boolean;
+  created_at?: Date;
+  updated_at?: Date;
 
-export interface NewUser extends Omit<User, "id"> {}
+
+  
+}
+export interface NewUser extends Omit<User, "id_user"> {}

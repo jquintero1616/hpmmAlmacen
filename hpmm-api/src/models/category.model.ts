@@ -9,9 +9,9 @@ export const getAllCategoryModel = async (): Promise<NewCategory[]> => {
 
 export async function getCategoryByIdModel(
   id_category: string
-): Promise<NewCategory | null> {
-  const category = await knexTableName().where({ id_category }).first();
-  return category || null;
+): Promise<NewCategory[]> {
+  const category: NewCategory[] = await knexTableName().where({ id_category });
+  return category;
 }
 
 export const createCategoryModel = async (
@@ -26,6 +26,7 @@ export const createCategoryModel = async (
 export async function updateCategoryModel(
   id_category: string,
   nombre: string,
+  descripcion: string,
   estado: boolean
 ): Promise<NewCategory | null> {
   const updated_at = new Date();
@@ -33,6 +34,7 @@ export async function updateCategoryModel(
     .where({ id_category })
     .update({
       nombre,
+      descripcion,
       estado,
       updated_at,
     })

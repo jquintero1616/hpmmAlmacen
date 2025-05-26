@@ -19,11 +19,11 @@ export const getVendedorByIdController = asyncWrapper(
         const id_vendedor = (req.params.id || "").trim();
         const vendedor = await VendedorService.getVendedorByService(id_vendedor);
         if (!vendedor) {
-            res.status(404).json({ msg: "vendedor no encontrado" });
+            res.status(404).json({ msg: "Vendedor no encontrado" });
             return;
         }
         res.status(200).json({
-            msg: `vendedor encontrado con id_vendedor ${id_vendedor}`,
+            msg: `vendedor encontrado correctamente con id_vendedor ${id_vendedor}`,
             vendedor,
         });
     }
@@ -44,8 +44,15 @@ export const createVendedorController = asyncWrapper(
 export const updateVendedorController = asyncWrapper(
     async (req: Request, res: Response): Promise<void> => {
         const id_vendedor = (req.params.id || "").trim();
-        const { id_proveedor, nombre_contacto, correo, estado } = req.body;
-        const vendedor = await VendedorService.updateVendedorService(id_vendedor, id_proveedor, nombre_contacto, correo, estado);
+        const { id_proveedor,
+             nombre_contacto,
+              correo,
+               estado } = req.body;
+        const vendedor = await VendedorService.updateVendedorService(id_vendedor,
+             id_proveedor,
+              nombre_contacto,
+               correo,
+                estado);
         if (!vendedor) {
             res.status(404).json({ msg: "vendedor no encontrado" });
             return;

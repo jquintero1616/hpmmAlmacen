@@ -1,5 +1,5 @@
 export interface Pact {
-  id_pacts: number;
+  id_pacts: string;
   name: string;
   tipo: "Diario" | "Quincenal" | "Mensual" | "Trimestral";
   estado: boolean;

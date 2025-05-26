@@ -50,7 +50,8 @@ export const UpdateRequisiController = asyncWrapper (
         const id_requisi = (req.params.id || "").trim();
         const payload = req.body;
         const updatedRequisi = await RequisiService.updateRequisiService(id_requisi, payload);
-    
+        
+  
         if (!updatedRequisi) {
             res.status(404).json({ msg: "Requisicion no encontrada" });
             return;
@@ -61,7 +62,7 @@ export const UpdateRequisiController = asyncWrapper (
             .json({ msg: "Requisicion actualizada correctamente", updatedRequisi });
     }
 )
-
+/*
 export const deleteRequisiController = asyncWrapper(
     async (req: Request, res: Response): Promise<void> => {
         const id_requisi = (req.params.id || "").trim();
@@ -75,3 +76,4 @@ export const deleteRequisiController = asyncWrapper(
         res.status(200).json({ msg: "Requisicion eliminada correctamente", deletedRequisi });
     }
 )
+*/

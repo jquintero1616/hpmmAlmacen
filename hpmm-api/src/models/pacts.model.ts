@@ -5,7 +5,7 @@ export const getAllPactsModel = async (): Promise<Pact[]> => {
   return db("pacts").select("*").where({ estado: true });
 };
 
-export const getPactByIdModel = async (id_pacts: number): Promise<Pact | null> => {
+export const getPactByIdModel = async (id_pacts: string): Promise<Pact | null> => {
   const pact = await db("pacts").where({ id_pacts }).first();
   return pact || null;
 };
@@ -18,7 +18,7 @@ export const createPactModel = async (payload: NewPact): Promise<Pact> => {
 };
 
 export const updatePactModel = async (
-  id_pacts: number,
+  id_pacts: string,
   payload: Partial<NewPact>
 ): Promise<Pact | null> => {
   const [updatedPact] = await db("pacts")
@@ -28,7 +28,7 @@ export const updatePactModel = async (
   return updatedPact || null;
 };
 
-export const deletePactModel = async (id_pacts: number): Promise<Pact | null> => {
+export const deletePactModel = async (id_pacts: string): Promise<Pact | null> => {
   const [deletedPact] = await db("pacts")
     .where({ id_pacts })
     .update({ estado: false })

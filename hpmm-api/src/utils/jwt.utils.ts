@@ -1,28 +1,15 @@
-import { NextFunction, Response } from 'express';
-import jwt from 'jsonwebtoken';
-import { CustomRequest } from '../types/express';
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
-const SECRET_KEY = process.env.JWT_SECRET as string;
+const SECRET = process.env.JWT_SECRET!;
+const EXPIRES_IN = "1h";
 
-export const generateToken = (userId: string): string => {
-  return jwt.sign({ userId }, SECRET_KEY, { expiresIn: '1h' });
-};
+export function generateToken(payload: object): string {
+  return jwt.sign(payload, SECRET, { expiresIn: EXPIRES_IN });
+}
 
-export const verifyToken = (req: CustomRequest, res: Response, next: NextFunction) => {
-  const token = req.get('Authorization')?.split(' ')[1];
+export function verifyToken(token: string): any {
+  return jwt.verify(token, SECRET);
+}
 
-  if (!token) {
-    res.status(403).json({ msg: 'Se necesita un token de autenticación' });
-    return;
-  }
-
-  try {
-    const decoded = jwt.verify(token, SECRET_KEY);
-    req.user = decoded; // Add the decoded user to the request
-  } catch (error) {
-    res.status(401).json({ msg: 'Token Invalido' });
-    return;
-  }
-
-  next();
-};

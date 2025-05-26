@@ -13,7 +13,7 @@ export const getAllDirectionService = async (): Promise<NewDirection[]> => {
   }
 }
 
-export const getDirectionByIdService = async (id_direction: number): Promise<NewDirection | null> => {
+export const  getDirectionByIdService = async (id_direction: string): Promise<NewDirection[]> => {
   return DirectionModel.getDirectionByIdModel(id_direction);    
 }
 
@@ -22,19 +22,19 @@ export const createDirectionService = async (data: NewDirection) => {
 }   
 
 export const updateDirectionService = async (
-  id_direction: number,
-  name: string,
+  id_direction: string,
+  nombre: string,
   estado: boolean
 ) => {
   const updatedDirection = await DirectionModel.updateDirectionModel(
     id_direction,
-    name,
+    nombre,
     estado
   );
   return updatedDirection;
 };  
 
-export async function deleteDirectionService(id_direction: number): Promise<NewDirection | null> {
+export async function deleteDirectionService(id_direction: string): Promise<NewDirection | null> {
   // Opcionalmente puedes verificar que exista:
   const existing = await DirectionModel.getDirectionByIdModel(id_direction);
   if (!existing) return null;

@@ -1,14 +1,21 @@
-import { Request, Response, NextFunction, RequestHandler } from 'express';
+// src/utils/errorHandler.ts
+import { Request, Response, NextFunction } from "express";
 
-/**
- * Wraps an async Express route handler and forwards errors to next().
- * Usage:
- *   router.get('/', asyncWrapper(async (req, res, next) => { ... }));
- */
-export const asyncWrapper = (
-  fn: (req: Request, res: Response, next: NextFunction) => Promise<any>,
-): RequestHandler => {
-  return (req: Request, res: Response, next: NextFunction) => {
+export function errorHandler(
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  console.error(err);
+  const status = err.statusCode || 500;
+  const message = err.message || "Internal Server Error";
+  res.status(status).json({ message });
+}
+
+// Wrapper para tus controladores asíncronos
+export const asyncWrapper =
+  (fn: Function) =>
+  (req: Request, res: Response, next: NextFunction) => {
     Promise.resolve(fn(req, res, next)).catch(next);
   };
-};

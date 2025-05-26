@@ -26,14 +26,14 @@ export const createSubCategoryModel = async (
 export async function updateSubcategoryModel(
   id_subcategory: string,
   nombre: string,
-  estado: boolean
+  
 ): Promise<NewSubcategory | null> {
   const updated_at = new Date();
   const [updatedSubcategory] = await knexTableName()
     .where({ id_subcategory })
     .update({
       nombre,
-      estado,
+     
       updated_at,
     })
     .returning("*");

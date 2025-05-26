@@ -12,7 +12,7 @@ export const getAllPactsService = async (): Promise<Pact[]> => {
 };
 
 export const getPactByIdService = async (
-  id_pacts: number
+  id_pacts: string
 ): Promise<Pact> => {
   const pact = await pactsModel.getPactByIdModel(id_pacts);
   if (!pact) {
@@ -31,7 +31,7 @@ export const createPactService = async (payload: NewPact): Promise<Pact> => {
 };
 
 export const updatePactService = async (
-  id_pacts: number,
+  id_pacts: string,
   payload: Partial<NewPact>
 ): Promise<Pact> => {
   const updated = await pactsModel.updatePactModel(id_pacts, payload);
@@ -41,7 +41,7 @@ export const updatePactService = async (
   return updated;
 };
 
-export const deletePactService = async (id_pacts: number): Promise<Pact> => {
+export const deletePactService = async (id_pacts: string): Promise<Pact> => {
   const deleted = await pactsModel.deletePactModel(id_pacts);
   if (!deleted) {
     throw new Error(`Pacto con id_pacts ${id_pacts} no encontrado`);

@@ -4,6 +4,7 @@ export interface Shopping {
   id_vendedor: string;
   fecha_compra: Date;
   total: number;
+  estado: boolean;
   created_at?: Date;
   updated_at?: Date;
 }

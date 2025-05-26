@@ -5,7 +5,7 @@ export async function up(knex: Knex): Promise<void> {
   await knex.schema.createTable("subdireccion", table => {
     table.uuid("id_subdireccion").primary().defaultTo(knex.raw('uuid_generate_v4()'));
     table.uuid("id_direction").notNullable();
-    table.string("name").notNullable();
+    table.string("nombre").notNullable();
     table.boolean("estado").notNullable().defaultTo(true);
     table.timestamps(true, true);
     table.foreign("id_direction").references("id_direction").inTable("direction").onDelete("CASCADE");

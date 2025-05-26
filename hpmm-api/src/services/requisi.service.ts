@@ -28,28 +28,27 @@ export const createRequiService = async (data: NewRequisi) => {
 }   
 
 export const updateRequisiService = async (
-    id_requisi: string,
-    data: {
-      mensaje: string;
-      tipo?: "Pendiente" | "Aprobado" | "Rechazada";
+  id_requisi: string,
+  data: {
+    fecha: Date;
+    estado?: "Pendiente" | "Aprobado" | "Rechazada";
+  }
+): Promise<NewRequisi | null> => {
+  // intentamos actualizar; si no existe devolvemos null
+  const updatedRequisi = await RequiModel.updateRequisiModel(
+    id_requisi,
+    data.fecha!,
+    data.estado!
+  );
 
-    }
-  ): Promise<NewRequisi> => {
-    try {
-      const updatedRequisi = await RequiModel.updateRequisiModel(
-        id_requisi,
-        data.mensaje!,
-        data.tipo!
-      );
-      if (!updatedRequisi) {
-          throw new Error(`Notificación con id_notifications ${id_requisi} no encontrada`);
-      }
-      return updatedRequisi;
-    } catch (error) {
-      logger.error(`Error updating notificación ${id_requisi}`, error);
-      throw error;
-    }       
-  };    
+  // si no hubo fila, lanzamos error de requisición
+  if (!updatedRequisi) {
+    throw new Error(`Requisición con id_requisi ${id_requisi} no encontrada`);
+  }
+
+  return updatedRequisi;
+};
+;    
 
   export async function deleteRequisiService(
     id_requisi: string

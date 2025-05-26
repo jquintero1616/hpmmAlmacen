@@ -28,25 +28,27 @@ export const createProductModel = async (
 
 export async function updateProductModel (
     id_product: string,
+    id_subcategory : string,
     nombre: string,
     descripcion: string,
     stock_actual: number,
     stock_maximo: number,
     fecha_vencimiento: Date,
-    numero_lote: string,
-    estado: boolean
+    numero_lote: string
+    
 ): Promise<NewProduct | null> {
     const updated_at = new Date();
     const [updatedProduct] = await knexTableName()
     .where({ id_product })
     .update({
         nombre,
+        id_subcategory,
         descripcion,
         stock_actual,
         stock_maximo,
         fecha_vencimiento,
         numero_lote,
-        estado,
+        
         updated_at,
     })
     .returning("*");

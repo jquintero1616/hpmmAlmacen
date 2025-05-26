@@ -1,55 +1,56 @@
 import knex from "knex";
 import db from "../db";
-import { NewUser } from "../types/user";
-import { randomUUID } from "crypto";
+import { NewUser, User } from "../types/user";
 
+
+
+// Get all users model
 export const getAllUsersModel = async (): Promise<NewUser[] | []> => {
-  return knexTableName().select("*").where({ estado: true });
+  return knexTableName().select("*").where({estado: true });
 };
 
 // User Id model
-export async function getUserByIdModel(id: number): Promise<NewUser | null> {
-  const user = await knexTableName().where({ id }).first();
+export async function getUserByIdModel(
+  id_user: string
+): Promise<NewUser | null> {
+  const user = await knexTableName().where({ id_user }).first();
   return user || null;
 }
 
-// create User
-export const createUserModel = async (user: NewUser): Promise<NewUser> => {
-  const [createdUser] = await knexTableName()
-    .insert({ id: randomUUID(), ...user })
+// Create User
+export const createUserModel = async (payload: User): Promise<User> => {
+  const [created] = await db("users")
+    .insert(payload)
     .returning("*");
-  return createdUser;
+  return created;
 };
 
+
 // Update User
-export async function updateUserModel(
-  id: number,
-  username: string,
-  email: string,
-  password: string,
-  estado: boolean
-): Promise<NewUser | null> {
-  const updated_at = new Date();
-  const [UpdatedUser] = await knexTableName()
-    .where({ id })
+export const updateUserModel = async (
+  id_user: string,
+  updates: Partial<Omit<User, "id_user" | "created_at" | "updated_at">>
+): Promise<User | null> => {
+  const [updated] = await db("users")
+    .where({ id_user })
     .update({
-      username,
-      email,
-      password,
-      estado,
-      updated_at,
+      ...updates,
+      updated_at: new Date(),
     })
     .returning("*");
-
-  return UpdatedUser || null;
-}
+  return updated || null;
+};
 
 // delete User
-
-export async function deleteUserModel(id: number): Promise<void> {
-  const deletedUser = await knexTableName().where({ id }).del().returning("*");
-
-  return deletedUser[0] || null;
+export async function deleteUserModel(
+  id_user: string
+): Promise<NewUser | null> {
+  const updated_at = new Date();
+  const [updatedUser] = await knexTableName()
+    .where({ id_user })
+    .update({ estado: false, updated_at })
+    .returning("*");
+  return updatedUser || null;
 }
 
 const knexTableName = () => {
