@@ -42,7 +42,7 @@ export const PostCreateUserService = async (user: userInfertace): Promise<userIn
         "Content-Type": "application/json",
       },
     });
-    return response.data.user; // Ajusta según la respuesta real del backend
+    return response.data.users; // Ajusta según la respuesta real del backend
   } catch (error) {
     console.error("Error al crear el usuario", error);
     throw error;

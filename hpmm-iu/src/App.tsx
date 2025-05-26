@@ -7,8 +7,7 @@ import { AuthProvider } from "../src/contexts/AuthContext";
 import { AnimatePresence } from "framer-motion";
 import { UserProvider } from "../src/contexts/userContext";
 import { PactProvider } from "../src/contexts/pactsContext";
-
-
+import { KardexProvider } from "./contexts/kardexContext";
 
 function AnimatedRoutes() {
   const location = useLocation();
@@ -38,10 +37,12 @@ function App() {
     <AuthProvider>
       <UserProvider>
         <PactProvider>
-          <Router>
-            <ToastContainer />
-            <AnimatedRoutes />
-          </Router>
+          <KardexProvider>
+            <Router>
+              <ToastContainer />
+              <AnimatedRoutes />
+            </Router>
+          </KardexProvider>
         </PactProvider>
       </UserProvider>
     </AuthProvider>

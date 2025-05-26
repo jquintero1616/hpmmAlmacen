@@ -30,6 +30,16 @@ export interface PactContextType {
   DeletePactContext: (id_pacts: string) => Promise<void>;
 }
 
+// USER CONTEXT TYPE KARDEx
+export interface KardexContextType {
+  kardex: Kardex[];
+  GetKardexContext: () => Promise<Kardex[] | null>;
+  GetKardexByIdContext: (id_kardex: string) => Promise<Kardex | undefined>;
+  PostCreateKardexContext: (kardex: Kardex) => Promise<Kardex>;
+  PutUpdateKardexContext: (id_kardex: string, kardex: Kardex) => Promise<void>;
+  DeleteKardexContext: (id_kardex: string) => Promise<void>;
+}
+
 
 
 export interface ProviderProps {

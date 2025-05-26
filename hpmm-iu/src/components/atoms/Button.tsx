@@ -7,8 +7,9 @@ interface ButtonProps {
   size?: 'small' | 'medium' | 'large';
   style?: React.CSSProperties;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
+  className?: string; // Agrega esta línea
 }
-
 
 const Button: React.FC<ButtonProps> = ({
   children,
@@ -17,6 +18,8 @@ const Button: React.FC<ButtonProps> = ({
   size = "small",
   style,
   disabled = false,
+  type = "button",
+  className = "", // Agrega esta línea
 }) => {
   const baseColor = isPrimary ? "bg-red-500" : "bg-gray-300";
   const hoverColor = isPrimary ? "hover:bg-red-700" : "hover:bg-gray-700";
@@ -34,7 +37,8 @@ const Button: React.FC<ButtonProps> = ({
 
   return (
     <button
-      className={`${baseColor} ${hoverColor} text-white font-bold rounded focus:outline-none focus:shadow-outline ${padding} ${fontSize}`}
+      type={type}
+      className={`${baseColor} ${hoverColor} text-white font-bold rounded focus:outline-none focus:shadow-outline ${padding} ${fontSize} ${className}`}
       onClick={onClick}
       style={style}
       disabled={disabled}
